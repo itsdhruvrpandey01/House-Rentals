@@ -27,7 +27,6 @@ This platform integrates several services as shown in the diagram:
 - **Email Service**: For sending contact/interest notifications
 - **Chatbot**: For handling user queries (tenant support)
 
-![System Diagram](./path/to/your/diagram.png) <!-- Update the path accordingly -->
 
 ## 🛠️ Tech Stack
 
@@ -51,8 +50,6 @@ spring.datasource.password=yourpassword
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 spring.jpa.hibernate.ddl-auto=update
 ```
-
-> 🔒 **Important**: Avoid pushing sensitive credentials (like `spring.datasource.password`) to public repositories.
 
 ## Setup Instructions
 
