@@ -17,8 +17,8 @@ public class EmailService {
 
         try {
             //rest of the code..
-            String from = "dhruvrpandey01@gmail.com";
-            String password = "zjpq syfk kthu bokg";
+            String from = "your_email.com";
+            String password = "your_password";
 
             //Variable for gmail
             String host = "smtp.gmail.com";
