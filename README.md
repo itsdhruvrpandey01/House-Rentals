@@ -80,9 +80,10 @@ spring.jpa.hibernate.ddl-auto=update
 - Notification system via SMS
 - Mobile app version
 
-## Contributors
-- Ayush – Frontend Development
+## 👥 Contributors
 
-- Sagar – Frontend Development
+- [**Dhruv Pandey**](https://github.com/itsdhruvrpandey01) – Project Lead & Backend Development  
+- [**Ayush**](https://github.com/ayushkhopatkar) – Frontend Development  
+- [**Sagar**](https://github.com/Sagargd4) – Frontend Development  
+- [**Ganesh**](https://github.com/Ganeshhhhh) – Backend Development
 
-- Ganesh – Backend Support
