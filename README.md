@@ -15,7 +15,7 @@ A full-stack property rental platform that streamlines the interaction between t
 - Get AI/ML-based rent suggestions
 - Receive tenant interest notifications via email
 
-### 🛡Admin Actions
+### Admin Actions
 - Review reports submitted by tenants
 - Ban users if reports are valid
 
@@ -78,7 +78,7 @@ spring.jpa.hibernate.ddl-auto=update
 - Notification system via SMS
 - Mobile app version
 
-## 👥 Contributors
+## Contributors
 
 - [**Dhruv Pandey**](https://github.com/itsdhruvrpandey01) – Project Lead & Backend Development  
 - [**Ayush**](https://github.com/ayushkhopatkar) – Frontend Development  
