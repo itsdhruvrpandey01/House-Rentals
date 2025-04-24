@@ -30,7 +30,7 @@ This platform integrates several services as shown in the diagram:
 
 ## Tech Stack
 
-- **Frontend**: HTML, CSS, JavaScript (assumed)
+- **Frontend**: Thymleaf,HTML,Tailwind CSS, JavaScript
 - **Backend**: Java with Spring Boot
 - **Database**: MySQL
 - **AI/ML Integration**: Custom models for rent and property comparison
