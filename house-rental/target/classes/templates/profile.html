@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <title>Document</title>
+  </head>
+  <body>
+  <nav
+      class="w-full h-[72px] bg-[#145da0] flex justify-between px-4 items-center md:px-5 shadow-sm shadow-gray-500 sticky top-0 z-10 "
+    >
+      <!-- House rental text -->
+      <div class="text-2xl text-white font-bold">
+        <i class="fa-solid fa-house-chimney"></i>ouse Rentals
+      </div>
+      <!-- user+dropdown menu -->
+      <div class="flex">
+        <!-- contact us -->
+        <div class="mx-[10px] py-3   text-white font-bold cursor-pointer">
+          Contact Us
+        </div>
+        <!-- profile part D will be replaced by user's first 
+          name or user's profile picture -->
+        <div class="bg-green-300  h-[36px] w-[34px]  mt-2 rounded-full px-3 py-3 cursor-pointer mx-[10px] text-green-800 text-[12px]">
+          D
+        </div>
+        <!-- hamburger icon -->
+        <div>
+          <i class="fa-solid fa-bars mt-3 text-white font-bold cursor-pointer mx-[10px] text-xl"></i>
+        </div>
+      </div>
+
+        <!-- Dropdown menu for future need to use javascript -->
+        <div
+          id="dropdownAvatarName"
+          class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+        >
+          <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+            <div class="font-medium">User</div>
+            <div class="truncate">
+              name@email.com</div>
+          </div>
+          <ul
+            class="py-2 text-sm text-gray-700 dark:text-gray-200"
+            aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
+          >
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Dashboard</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Settings</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Something</a
+              >
+            </li>
+          </ul>
+          <div class="py-2">
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >Sign out</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+  <div class="min-h-screen flex items-center justify-center bg-gray-100">
+      <div class="w-full  max-w-lg bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">
+          User Details Form
+        </h2>
+        <form id="userForm" action="#" method="POST" class="space-y-4">
+          <!-- You Are -->
+          <div>
+            <label for="you-are" class="block text-sm font-medium text-gray-700"
+              >You are</label
+            >
+            <input
+              type="text"
+              id="you-are"
+              name="u_type"
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              placeholder="User Type"
+              required
+              th:value="${u.u_type}"
+              readonly
+            />
+          </div>
+
+          <!-- Name -->
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700"
+              >First Name</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="u_first_name"
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter Your Name"
+              required
+              th:value="${u.u_first_name}"
+              readonly
+            />
+          </div>
+          
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700"
+              >Last Name</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="u_first_name"
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter Your Name"
+              required
+              th:value="${u.u_last_name}"
+              readonly
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700"
+              >Email ID</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="u_email"
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter Your Email"
+              required
+              th:value="${u.u_email}"
+              readonly
+            />
+          </div>
+
+          <!-- Phone Numbers -->
+          <div>
+            <label for="phone1" class="block text-sm font-medium text-gray-700"
+              >Phone Number</label
+            >
+            <div class="flex space-x-2">
+              <select
+                class="p-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="+91">+91 IND</option>
+              </select>
+              <input
+                type="text"
+                id="phone1"
+                name="u_phone_number"
+                class="p-2 border flex-grow rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter Your Phone Number 1"
+                required
+                th:value="${u.u_phone_number}"
+                readonly
+              />
+            </div>
+            <div class="flex space-x-2">
+              <select
+                class="p-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="+91">+91 IND</option>
+              </select>
+              <input
+                type="text"
+                id="phone1"
+                name="extra_number"
+                class="p-2 border flex-grow rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter Your Phone Number 1"
+                required
+                th:value="${u.extra_number}"
+                readonly
+              />
+            </div>
+          </div>
+
+          <!-- City -->
+          <div>
+            <lable for="city" class="block text-sm font-medium text-gray-700"
+              >Enter Your City</lable
+            >
+			
+			<input
+              type="text"
+              id="name"
+              name="u_first_name"
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter Your Name"
+              required
+              th:value="${u.u_city}"
+              readonly
+            />
+			            
+          </div>
+
+          <!-- Address -->
+          <div>
+            <label for="address" class="block text-sm font-medium text-gray-700"
+              >Address</label
+            >
+            <input
+              type="text"
+              id="address"
+              name="address"
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter Your Address"
+              required
+              th:value="${u.u_address}"
+              readonly
+            />
+          </div>
+
+          <!-- Landline Number -->
+          <div>
+            <label
+              for="landline"
+              class="block text-sm font-medium text-gray-700"
+              >Landline No</label
+            >
+            <input
+              type="text"
+              id="landline"
+              name="landline"
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter Your Landline No"
+              th:value="${u.u_landline}"
+              readonly
+            />
+          </div>
+
+          <!-- Save Button -->
+          <div class="mb-4 text-right">
+  			<button
+    			id="editBtn"
+    			type="button"
+    			class="px-4 py-2 bg-yellow-400 text-white rounded hover:bg-yellow-500"
+  			>
+    			Edit
+  			</button>
+</div>
+          <div>
+            <button
+              type="submit"
+              class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+     </div>
+  </body>
+  <!-- JavaScript -->
+<script>
+  // Prevent form submission
+  document.getElementById("userForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    alert("Form submitted!");
+  });
+
+  // Toggle edit mode
+  document.getElementById("editBtn").addEventListener("click", function () {
+    const form = document.getElementById("userForm");
+
+    // Unlock all inputs and selects, except 'u_type'
+    form.querySelectorAll("input, select").forEach((el) => {
+      if (el.name !== "u_type") {
+        el.removeAttribute("readonly");
+        el.removeAttribute("disabled");
+      }
+    });
+  });
+</script>
+</html>

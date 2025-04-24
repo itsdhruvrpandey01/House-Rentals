@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <title>Document</title>
+  </head>
+  <body>
+  <nav
+      class="w-full h-[72px] bg-[#145da0] flex justify-between px-4 items-center md:px-5 shadow-sm shadow-gray-500 sticky top-0 z-10 "
+    >
+      <!-- House rental text -->
+      <div class="text-2xl text-white font-bold">
+        <i class="fa-solid fa-house-chimney"></i>ouse Rentals
+      </div>
+      <!-- user+dropdown menu -->
+      <div class="flex">
+        <!-- contact us -->
+        <div class="mx-[10px] py-3   text-white font-bold cursor-pointer">
+          Contact Us
+        </div>
+        <!-- profile part D will be replaced by user's first 
+          name or user's profile picture -->
+        <div class="bg-green-300  h-[36px] w-[34px]  mt-2 rounded-full px-3 py-3 cursor-pointer mx-[10px] text-green-800 text-[12px]">
+          A
+        </div>
+        <!-- hamburger icon -->
+        <div>
+          <i class="fa-solid fa-bars mt-3 text-white font-bold cursor-pointer mx-[10px] text-xl"></i>
+        </div>
+      </div>
+
+        <!-- Dropdown menu for future need to use javascript -->
+        <div
+          id="dropdownAvatarName"
+          class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+        >
+          <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+            <div class="font-medium">User</div>
+            <div class="truncate">
+              name@email.com</div>
+          </div>
+          <ul
+            class="py-2 text-sm text-gray-700 dark:text-gray-200"
+            aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
+          >
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Dashboard</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Settings</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Something</a
+              >
+            </li>
+          </ul>
+          <div class="py-2">
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >Sign out</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <table class="table-auto w-full border border-gray-300 mt-4">
+  <thead>
+    <tr class="bg-gray-100 text-left">
+      <th class="border px-4 py-2">User ID</th>
+      <th class="border px-4 py-2">Name</th>
+      <th class="border px-4 py-2">Email</th>
+      <th class="border px-4 py-2">Phone</th>
+      <th class="border px-4 py-2">User Type</th>
+      <th class="border px-4 py-2">Status</th>
+      <th class="border px-4 py-2">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="user : ${users}">
+      <td class="border px-4 py-2" th:text="${user.u_id}"></td>
+      <td class="border px-4 py-2" th:text="${user.u_first_name + ' ' + user.u_last_name}"></td>
+      <td class="border px-4 py-2" th:text="${user.u_email}"></td>
+      <td class="border px-4 py-2" th:text="${user.u_phone_number}"></td>
+      <td class="border px-4 py-2" th:text="${user.u_type}"></td>
+      <td class="border px-4 py-2" th:text="${user.active ? 'Active' : 'Inactive'}"
+          th:classappend="${user.active} ? 'text-green-600 font-semibold' : 'text-red-500 font-semibold'">
+      </td>
+      <td class="border px-4 py-2">
+        <form th:action="@{'/admin/user/status/' + ${user.u_id}}" method="post">
+    		<input type="hidden" name="status" th:value="${!user.active}" />
+    			<button type="submit"
+            	class="px-3 py-1 rounded text-white"
+            	th:classappend="${user.active} ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'">
+      			<span th:text="${user.active ? 'Deactivate' : 'Activate'}"></span>
+    			</button>
+  		</form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+    </body>
+</html>

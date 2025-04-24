@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta 
+    name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Upload Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+      </style>
+</head>
+
+<body class="bg-[#222831]">
+    <nav
+      class="w-full h-[72px] bg-[#393E46] flex justify-between px-4 items-center md:px-5 shadow-sm shadow-gray-500 sticky top-0 z-10 "
+    >
+      <!-- House rental text -->
+      <div class="text-2xl text-white font-bold">
+        <i class="fa-solid fa-house-chimney text-[#0ACFC7]"></i>ouse Rentals
+      </div>
+      <!-- user+dropdown menu -->
+      <div class="flex">
+        <!-- contact us -->
+        <div class="mx-[10px] py-3   text-white font-bold cursor-pointer">
+          Contact Us
+        </div>
+        <!-- profile part D will be replaced by user's first 
+          name or user's profile picture -->
+        <div class="bg-green-300  h-[36px] w-[34px]  mt-2 rounded-full px-3 py-3 cursor-pointer mx-[10px] text-green-800 text-[12px]">
+          D
+        </div>
+        <!-- hamburger icon -->
+        <div>
+          <i class="fa-solid fa-bars mt-3 text-white font-bold cursor-pointer mx-[10px] text-xl"></i>
+        </div>
+      </div>
+
+        <!-- Dropdown menu for future need to use javascript -->
+        <div
+          id="dropdownAvatarName"
+          class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+        >
+          <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+            <div class="font-medium">User</div>
+            <div class="truncate">
+              name@email.com</div>
+          </div>
+          <ul
+            class="py-2 text-sm text-gray-700 dark:text-gray-200"
+            aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
+          >
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Dashboard</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Settings</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Something</a
+              >
+            </li>
+          </ul>
+          <div class="py-2">
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >Sign out</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="bg-whiteflex justify-center h-full"></div>
+    <div class="p-8 rounded-lg w-full h-full flex">
+        <!-- Sidebar Stepper -->
+        <div class="w-1/4 border-r pr-4 text-white">
+            <ul class="space-y-4">
+                <li class="flex items-center space-x-2 step-item p-5" data-step="1">
+                    <div class="step-circle w-8 h-8 flex items-center justify-center rounded-full text-white font-bold bg-[#0ACFC7]">
+                        1</div>
+                    <span >Basic Details <br> step 1</span>
+                </li>
+                <li class="flex items-center space-x-2 step-item p-5" data-step="2">
+                    <div class="step-circle w-8 h-8 flex items-center justify-center rounded-full text-white font-bold">
+                        2</div>
+                    <span >Location Details <br> step 2</span>
+                </li>
+                <li class="flex items-center space-x-2 step-item p-5" data-step="3">
+                    <div class="step-circle w-8 h-8 flex items-center justify-center rounded-full text-white font-bold bg-[#0ACFC7]">
+                        3</div>
+                    <span >Property Profile <br> step 3</span>
+                </li>
+                <li class="flex items-center space-x-2 step-item p-5" data-step="4">
+                    <div
+                        class="step-circle w-8 h-8 flex items-center justify-center rounded-full text-white font-bold bg-[#0ACFC7]">
+                        4</div>
+                    <span >Photos, Videos & Voice-over <br> step 4</span>
+                </li>
+                <li class="flex items-center space-x-2 step-item p-5" data-step="5">
+                    <div class="step-circle w-8 h-8 flex items-center justify-center rounded-full text-white font-bold bg-[#0ACFC7]">
+                        5</div>
+                    <span >Other Details <br> step 5</span>
+                </li>
+            </ul>
+        </div>
+        <!-- Form Content -->
+        <div class="w-3/4 pl-8 text-white">
+            <form id="multi-step-form" enctype="multipart/form-data" action="#" th:action="@{/property-upload}" method="POST">
+              <!-- back button hidden at step 1 -->
+              <button 
+                type="button" id="prevBtn"
+                class="text-black rounded hidden">
+                <i class="fa-solid fa-arrow-right" 
+                style="transform: rotate(180deg);"></i> 
+                Back
+              </button>
+                <!-- Step 1 -->
+                <div class="step" id="step-1">
+                    <h2 class="text-lg font-semibold mb-4">Welcome User, Fill Out basic details</h2>
+                    <div>What kind of Property You have ?</div>
+                    <label class="block mb-2">Property Type</label>
+                    <div class="flex space-x-4 mb-4">
+                        <label class="flex items-center">
+                            <input 
+                            type="radio" 
+                            name="propertyType" 
+                            value="Flat/Apartment" class="mr-2">
+                            Flat/Apartment
+                        </label>
+                        <label class="flex items-center">
+                            <input 
+                            type="radio" 
+                            name="propertyType" 
+                            value="Chawl" class="mr-2">
+                            Chawl
+                        </label>
+                    </div>
+                </div>
+                <!-- end of step 1 -->
+                <!-- Step 2 -->
+                <div class="step hidden" id="step-2">
+                    <h2 class="text-lg font-semibold mb-4">Where is your property located?</h2>
+                      <label class="block mb-2">City</label>
+                      <input 
+                      type="text" class="w-full p-2 border rounded mb-4 text-black" 
+                      placeholder="Enter 
+                      name of city Eg. Airoli"
+                      name="city"
+                      id="city">
+
+                      <label class="block mb-2 ">Locality</label>
+                      <input 
+                      type="text" 
+                      class="w-full p-2 border rounded mb-4 text-black" 
+                      placeholder="Ex. Sector 17 "
+                      name="locality"
+                      id="area_locality">
+
+                      <label class="block mb-2 ">Sub - Locality</label>
+                      <input 
+                      type="text" 
+                      class="w-full p-2 border rounded mb-4 text-black" 
+                      placeholder="Optional"
+                      name="sub_locality">
+
+                      <label class="block mb-2 ">Apartment / Society / Chawl</label>
+                      <input 
+                      type="text" 
+                      class="w-full p-2 border rounded mb-4 text-black"
+                      placeholder="Name of your Apartment Eg. Snehsagar Apartment"
+                      name="property_addr">
+
+                      <label class="block mb-2 ">House Number</label>
+                      <input 
+                      type="number" 
+                      class="w-full p-2 border rounded mb-4 text-black" 
+                      placeholder="Optional"
+                      name="house_number"
+                      value="0" min="0">
+
+                </div>
+                <!-- end of step 2 -->
+                <!-- Step 3 -->
+                <div class="step hidden" id="step-3">
+                    <h2 class="text-lg font-bold mb-4">Tell us more about your Property</h2>
+                    <div class="text-bold text-lg font-semibold">Add Room Details</div>
+                    <!-- basic details -->
+                      <label class="block mb-2">No. of Bedrooms</label>
+                      <input 
+                      type="number" 
+                      class="w-full p-2 border rounded mb-4 text-black" 
+                      placeholder="Number of bedrooms Ex. 2"
+                      name="no_of_bedrooms"
+                      value="0" min="0"
+                      id="bhk">
+                      <label class="block mb-2">No. of Bathrooms</label>
+                      <input 
+                      type="number" 
+                      class="w-full p-2 border rounded mb-4 text-black" 
+                      placeholder="Number of Bathrooms Ex. -1"
+                      name="no_of_bathrooms"
+                      value="0" min="0"
+                      id="bathroom">
+                      <label class="block mb-2">No. of Balconies</label>
+                      <input 
+                      type="number" 
+                      class="w-full p-2 border rounded mb-4 text-black" 
+                      placeholder="Number of Balconies Ex. 2"
+                      name="no_of_balconies"
+                      value="0" min="0">
+                      <!-- area of property -->
+                      <div >Add Area Details</div>
+                      <label class="block mb-2 text-gray-700 text-sm">Atleast one are 
+                        type is mandatory</label>
+                      <div class="flex">
+                          <input 
+                          type="number" 
+                          class="w-full p-2 border rounded-l-md text-black" 
+                          placeholder="Carpet area ex. 200"
+                          name="area"
+                          value="0" min="0"
+                          id="size">
+                          <select 
+                          id="carpet-area" 
+                          name="carpet_area"
+                          class="w-1/4 border-t border-r border-b rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                              <option 
+                              value="sqft" selected>sq.ft</option>
+                              <option 
+                              value="sqm">sq. m</option>
+                              <option 
+                              value="sqyd">sq. yd</option>
+                          </select>
+                    </div>
+                    <!-- furnishing details -->
+                    <div>Furnishing</div>
+                    <div>
+                        <input 
+                        type="hidden" 
+                        id="furnishing_status" 
+                        name="furnishing_type"
+                        >
+
+                      <button 
+                      class="border-2 rounded-lg border-[#888b92] p-2 m-2" 
+                      id="furnish"
+                      type="button">
+                      Furnished</button> 
+                      <button 
+                      class="border-2 rounded-lg border-[#888b92] p-2 m-2" 
+                      id="semi_furnish"
+                      type="button">
+                      Semi-furnished
+                      </button> 
+                      <button 
+                      class="border-2 rounded-lg border-[#888b92] p-2 m-2" 
+                      id="un_furnished"
+                      type="button">
+                      Un-furnished
+                      </button>
+                      <!-- furnishing options for semi and full furnished -->
+                      <div id="furnishing_detail" class="hidden">
+                        <div class="font-bold text-sm mb-2"> at least three furnishing are mandatory for furnished</div>
+                        <div class="flex items-center space-x-4 mb-2">
+                        <button type="button" onclick="decrement('light')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">-</button>
+                        <!-- light -->
+                        <input 
+                        type="number" 
+                        id="light" 
+                        class="w-12 text-center border rounded-md bg-gray-100" 
+                        value = "0" 
+                        name="light"> 
+                        <button type="button" onclick="increment('light')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">+</button>
+                        <span>Light</span>
+                        
+                        <button type="button" onclick="decrement('Fans')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">-</button> 
+                        <!-- fans -->
+                        <input 
+                        type="number" 
+                        class="w-12 text-center border rounded-md bg-gray-100" 
+                        id="Fans" 
+                        value = "0" 
+                        name="fans"> 
+
+                        <button type="button" onclick="increment('Fans')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">+</button>
+                        <span>Fans</span>
+                        </div>
+                        <div class="flex items-center space-x-4 mb-2">
+
+                        <button type="button" onclick="decrement('Ac')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">-</button>
+                        <!-- Ac -->
+                        <input 
+                        type="number" 
+                        class="w-12 text-center border rounded-md bg-gray-100" 
+                        id="Ac" 
+                        value = "0" 
+                        name="ac"> 
+
+                        <button 
+                        type="button" 
+                        onclick="increment('Ac')" 
+                        class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">+</button>
+                        <span>Ac</span>
+                        <button type="button" onclick="decrement('TV')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">-</button> 
+                        <!-- TV -->
+                        <input 
+                        type="number" 
+                        class="w-12 text-center border rounded-md bg-gray-100" 
+                        id="TV" 
+                        value = "0" 
+                        name="TV">  
+                        <button type="button" onclick="increment('TV')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">+</button>
+                        <span>TV</span>
+
+                        </div>
+
+                        <div class="flex items-center space-x-4 mb-2">
+
+                        <button type="button" onclick="decrement('Beds')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">-</button> 
+                        <!-- Beds -->
+                        <input 
+                        type="number" 
+                        class="w-12 text-center border rounded-md bg-gray-100" 
+                        id="Beds" 
+                        value = "0" 
+                        name="beds">  
+                        <button type="button" onclick="increment('Beds')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">+</button>
+                        <span>Beds</span>
+                          
+                        <button type="button" onclick="decrement('Wardrobe')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">-</button>
+                         <!--Wardrobe -->
+                        <input 
+                        type="number" 
+                        class="w-12 text-center border rounded-md bg-gray-100" 
+                        id="Wardrobe" 
+                        value = "0" 
+                        name="wardrobe">  
+                        <button type="button" onclick="increment('Wardrobe')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">+</button>
+                        <span>Wardrobe</span>
+
+                        </div>
+                        <div class="flex items-center space-x-4 mb-2">
+
+                        <button type="button" onclick="decrement('Geyser')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">-</button> 
+                        <input 
+                        type="number"  
+                        class="w-12 text-center border rounded-md bg-gray-100"
+                        id="Geyser" 
+                        value = "0" 
+                        name="geyser">  
+                        <button type="button" onclick="increment('Geyser')" class="rounded-full w-8 h-8 flex items-center justify-center font-bold bg-white p-2">+</button>
+                        <span>Geyser</span>
+                        <!-- checkboxes -->
+                        <input 
+                        type="checkbox" 
+                        name="sofa" 
+                        id="sofa"
+                        value="1"
+                        >
+                        <label for="sofa">Sofa</label>
+                        </div>
+                        <div class="flex items-center space-x-4 mb-2">
+                        <input 
+                        type="checkbox" 
+                        name="washing_machine" 
+                        id="washing_machine"
+                        value="1"
+                        >
+                        <label for="washing_machine">Washing Machine</label>
+
+                        <input 
+                        type="checkbox" 
+                        name="stove" 
+                        id="stove"
+                        value="1">
+                        <label for="stove">Stove</label>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4 mb-2">
+                        <input 
+                        type="checkbox" 
+                        name="fridge" 
+                        id="fridge"
+                        value="1"
+                        >
+                        <label for="fridge">Fridge</label>
+                        
+                        <input 
+                        type="checkbox" 
+                        name="water_purifier" 
+                        id="water_purifier"
+                        value="1">
+                        <label for="water_purifier">Water Purifier</label>
+                        </div>
+                        <div class="flex items-center space-x-4 mb-2">
+                        <input 
+                        type="checkbox" 
+                        name="microwave" 
+                        id="microwave"
+                        value="1">
+                        <label for="microwave">Microwave</label>
+                        
+                        <input 
+                        type="checkbox" 
+                        name="modular_kitched" 
+                        id="modular_kitched"
+                        value="1">
+
+                        <label for="modular_kitched">Modular Kitched</label>
+                        </div>
+                        <div 
+                        class="flex items-center space-x-4 mb-2">
+                        <input 
+                        type="checkbox" 
+                        name="chimney" 
+                        id="chimney"
+                        value="1">
+                        <label for="chimney">Chimney</label>
+                        
+                        <input 
+                        type="checkbox" 
+                        name="dinning_table" 
+                        id="dinning_table"
+                        value="1">
+                        <label for="dinning_table">Dinning Table</label>
+                        </div>
+                        <div class="flex items-center space-x-4 mb-2">
+                        <input 
+                        type="checkbox" 
+                        name="curtains" 
+                        id="curtains"
+                        value="1">
+                        <label for="curtains">Curtains</label>
+                        
+                        <input 
+                        type="checkbox" 
+                        name="exhaust_fan" 
+                        id="exhaust_fan"
+                        value="1">
+                        <label for="exhaust_fan">Exhaust Fan</label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end of furnishing detials -->
+                    <!-- start of  other detials for property -->
+                    <!-- start of floor details -->
+                    <div> Floor details </div>
+                    <div class="flex space-x-4">
+                      <div class="flex flex-col">
+                        <label 
+                        for="total_floors"
+                        class="text-gray-600 text-sm mb-1">
+                        Total Floors
+                        </label>
+
+                        <input 
+                        type="number" 
+                        name="total_floors" 
+                        id="total_floors" 
+                        oninput="updateFloorOptions()"
+                        min="0" 
+                        value = "0"
+                        placeholder="Enter floors" 
+                        class="border rounded-md px-3 py-2 w-40">
+                      </div>
+                      <div class="flex flex-col">
+                        <label 
+                        for="floor_Select"
+                        class="text-gray-600 text-sm mb-1">
+                        Property on Floor
+                        </label>
+
+                        <select 
+                        name="your_floor" 
+                        id="floor_Select"
+                        class="border rounded-md px-3 py-2 w-40"
+                        >
+                          <option value="0" selected>
+                            Select your floor
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- end of floor details -->
+                    <!-- start of age of property -->
+                    <div>Age of your property</div>
+                    <div class="flex space-x-4 mb-2">
+                      <label class="checkbox-label px-4 py-2 border rounded-md cursor-pointer">
+                          <input type="checkbox" name="age_of_property" class="hidden" onclick="selectOnlyOne(this)">
+                          0-1 years
+                      </label>
+                      
+                      <label class="checkbox-label px-4 py-2 border rounded-md cursor-pointer">
+                          <input type="checkbox" name="age_of_property" class="hidden" onclick="selectOnlyOne(this)">
+                          1-5 years
+                      </label>
+              
+                      <label class="checkbox-label px-4 py-2 border rounded-md cursor-pointer">
+                          <input type="checkbox" name="age_of_property" class="hidden" onclick="selectOnlyOne(this)">
+                          5-10 years
+                      </label>
+                      <label class="checkbox-label px-4 py-2 border rounded-md cursor-pointer">
+                          <input type="checkbox" name="age_of_property" class="hidden" onclick="selectOnlyOne(this)">
+                          10 + years
+                      </label>
+                  </div>
+                  <!-- end of age of property  -->
+                  <label for="rent_price">Expected Rent</label>
+                  <input 
+                  class="text-black"
+                  type="number" 
+                  id="rent_price"
+                  name="rent_price"
+                  value="0" min="0">
+                  <button onclick="event.preventDefault();predictRent();">Suggest Rent</button>
+
+                  <h3 id="result"></h3>
+                </div>
+                <!-- end of step 3 -->
+                <!-- Step 4 -->
+                <div class="step hidden" id="step-4">
+                    <h2 class="text-lg font-semibold mb-4">Photos &  Videos</h2>
+                      <label class="block mb-2">Bedroom</label>
+                      <input 
+                      type="file" 
+                      class="w-full p-2 border rounded mb-4"
+                      name="mbedroom_1">
+                      <label class="block mb-2">2nd Bedroom(optional)</label>
+                      <input 
+                      type="file" 
+                      class="w-full p-2 border rounded mb-4"
+                      name="mbedroom_2">
+                      <label class="block mb-2">Kitchen</label>
+                      <input 
+                      type="file" 
+                      class="w-full p-2 border rounded mb-4"
+                      name="mkitchen"
+                      >
+                      <label class="block mb-2">Balcony</label>
+                      <input 
+                      type="file" 
+                      class="w-full p-2 border rounded mb-4"
+                      name="mbalcony">
+                      <label class="block mb-2">Bathroom</label>
+                      <input 
+                      type="file" 
+                      class="w-full p-2 border rounded mb-4"
+                      name="mbathroom">
+                      <label class="block mb-2">Hall</label>
+                      <input 
+                      type="file" 
+                      class="w-full p-2 border rounded mb-4"
+                      name="mhall">
+                      <label class="block mb-2">Upload Video</label>
+                      <input 
+                      type="file" 
+                      class="w-full p-2 border rounded mb-4"
+                      name="mvideo">
+                </div>
+                <!-- end of step 4 -->
+                <!-- Step 5 -->
+                <!-- whole step 5 is optional -->
+                <div class="step hidden" id="step-5">
+                    <h2 class="text-lg font-semibold mb-4">Add Other Details</h2>
+                    <div> Security Deposit (optional) </div>
+                    <div class="flex space-x-4 mb-4">
+                        <label class="flex items-center">
+                            <input 
+                            type="radio" 
+                            name="Security_deposit" 
+                            value="Fixed" class="mr-2">
+                            Fixed
+                        </label>
+                        <label class="flex items-center">
+                            <input 
+                            type="radio" 
+                            name="Security_deposit" 
+                            value="Multiple of Rent" class="mr-2">
+                            Multiple of Rent
+                        </label>
+                        <label class="flex items-center">
+                            <input 
+                            type="radio" 
+                            name="Security_deposit" 
+                            value="None" class="mr-2">
+                            None
+                        </label>
+                    </div>
+
+                    <div> Month of notice (optional) </div>
+                      <div class="flex space-x-4 mb-4">
+                          <label class="flex items-center">
+                              <input 
+                              type="radio" 
+                              name="monthNotice" 
+                              value="None" class="mr-2">
+                              None
+                          </label>
+                          <label class="flex items-center">
+                              <input 
+                              type="radio" 
+                              name="monthNotice" 
+                              value="1" class="mr-2">
+                              1 Month
+                          </label>
+                          <label class="flex items-center">
+                              <input 
+                              type="radio" 
+                              name="monthNotice" 
+                              value="2" class="mr-2">
+                              2 Month
+                          </label>
+                          <label class="flex items-center">
+                              <input 
+                              type="radio" 
+                              name="monthNotice" 
+                              value="3" class="mr-2">
+                              3 Month
+                          </label>
+                          <label class="flex items-center">
+                              <input 
+                              type="radio" 
+                              name="monthNotice" 
+                              value="4" class="mr-2">
+                              4 Month
+                          </label>
+                          <label class="flex items-center">
+                              <input 
+                              type="radio" 
+                              name="monthNotice" 
+                              value="5" class="mr-2">
+                              5 Month
+                          </label>
+                          <label class="flex items-center">
+                              <input 
+                              type="radio" 
+                              name="monthNotice" 
+                              value="6" class="mr-2">
+                              6 Month
+                          </label>
+                      </div>
+                      <!-- Society Restrictions Section -->
+                        <div >
+                            <h2 class="text-lg font-semibold mb-2">Society Restrictions</h2>
+                            <div class="relative border p-2 rounded-md flex flex-wrap gap-2 min-h-[40px]" id="restriction-container">
+                                <input type="text" id="restriction-input" class="outline-none flex-1 min-w-[100px] text-black" placeholder="Type restriction..." >
+                                <input type="text" name="restrictions" class="hidden">
+                            </div>
+                            <div id="restriction-autocomplete" class="absolute w-full bg-white border border-gray-300 rounded-md shadow-lg hidden mt-1"></div>
+                        </div>
+                        <!-- end of society restriction section -->
+
+                        <!-- Extra Features Section -->
+                        <div >
+                            <h2 class="text-lg font-semibold mb-2">Extra Features</h2>
+                            <div class="relative border p-2 rounded-md flex flex-wrap gap-2 min-h-[40px]" id="features-container">
+                                <input type="text" id="features-input" class="outline-none flex-1 min-w-[100px] text-black" placeholder="Type feature..." >
+                                <input type="text" name="features" class="hidden">
+
+                            </div>
+                            <div id="features-autocomplete" class="absolute w-full bg-white border border-gray-300 rounded-md shadow-lg hidden mt-1"></div>
+                        </div>
+                        <!-- end of extra features -->
+                    </div>
+                    <!-- features of society -->
+                <!-- end of step 5 -->
+                <!-- Navigation buttons continue and submit where submit is hidden by default-->
+                <div class="flex justify-between mt-6">
+                    <button 
+                    type="button" 
+                    id="nextBtn" 
+                    class="px-4 py-2 bg-blue-500 text-white rounded bg-[#0ACFC7]">Continue</button>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button 
+                    type="submit" 
+                    id="submitBtn" 
+                    class="px-4 py-2 bg-blue-500 text-white rounded hidden bg-[#0ACFC7]">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        function showStep(step) {
+            // Hiding all steps all steps in begnining 
+            document.querySelectorAll(".step").forEach(s => s.classList.add("hidden"));
+            // showing current step like step = 1 so step-1
+            document.getElementById(`step-${step}`).classList.remove("hidden");
+
+            // Updating stepper UI here blue for complete grey for incomplete
+            // one more logic we have to add is ki if you have already visited and filled the proper things then that step should be blue sagar will be add this 
+            document.querySelectorAll(".step-item").forEach((item, index) => {
+                const circle = item.querySelector(".step-circle");
+                circle.classList.remove("bg-blue-500", "bg-gray-300");
+                circle.classList.add(index + 1 <= step ? "bg-blue-500" : "bg-gray-300");
+            });
+
+            // Handle button visibility
+            document.getElementById("prevBtn").classList.toggle("hidden", step === 1);
+            document.getElementById("nextBtn").innerText = "Continue";
+            document.getElementById("nextBtn").classList.remove("hidden");
+            document.getElementById("submitBtn").classList.add("hidden");
+            if(step === totalSteps) {
+                document.getElementById("nextBtn").classList.add("hidden");
+                document.getElementById("submitBtn").classList.remove("hidden");
+            }
+        }
+
+        // event listner on nextBtm
+        document.getElementById("nextBtn").addEventListener("click", () => {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            } else {
+                alert("Form submitted!");
+            }
+        });
+
+        // event listner on prevBtn
+        document.getElementById("prevBtn").addEventListener("click", () => {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        // Initialize first step
+        showStep(currentStep);
+
+        function activeFurnishing(name){
+            document.getElementById("furnishing_status").value = name === 'furnish' ? "Furnished" : name === 'semi_furnish' ? "Semi-Furnished":"Un-Furnished";
+
+          if(name==="furnish" || name==="semi_furnish") document.getElementById("furnishing_detail").classList.remove("hidden");
+          else document.getElementById("furnishing_detail").classList.add("hidden");
+        }
+        // event listeners for activing furnishing 
+        document.getElementById("furnish").addEventListener("click", () => {
+            
+            activeFurnishing("furnish");
+        });
+        document.getElementById("semi_furnish").addEventListener("click", () => {
+            
+            activeFurnishing("semi_furnish");
+        });
+        // to deactivate furninshing part
+        document.getElementById("un_furnished").addEventListener("click", () => {
+            
+            activeFurnishing("un_furnished");
+        });
+
+        function updateFurnishStatus(value) {
+    document.getElementById("furnish_status").value = value;
+    return; // For debugging
+  }
+
+        function increment(id) {
+            let element = document.getElementById(id);
+            let value = parseInt(element.value);
+            element.value = value + 1;
+        }
+
+        function decrement(id) {
+            let element = document.getElementById(id);
+            let value = parseInt(element.value);
+            if (value > 0) {
+                element.value = value - 1;
+            }
+        }
+
+        // to ensuring uncheck options send value 0 
+        document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector("form").addEventListener("submit", function () {
+            document.querySelectorAll("input[type='checkbox']").forEach(function (checkbox) {
+                if (!checkbox.checked) {
+                    let hiddenInput = document.createElement("input");
+                    hiddenInput.type = "hidden";
+                    hiddenInput.name = checkbox.name;
+                    hiddenInput.value = "0";
+                    checkbox.parentNode.appendChild(hiddenInput);
+                }
+            });
+        });
+    });
+
+        // for updating the no of floors dynamically 
+
+        function updateFloorOptions() {
+            let totalFloors = document.getElementById("total_floors").value;
+            let floorSelect = document.getElementById("floor_Select");
+
+            // clearing options that exists already 
+            floorSelect.innerHTML = '<option value="0" selected>Ground floor</option>';
+
+            // adding new options
+            for (let i = 1; i <= totalFloors; i++) {
+                let option = document.createElement("option");
+                option.value = i;
+                option.textContent = i;
+                floorSelect.appendChild(option);
+            }
+        }
+        // to prevent selecting multiple options in age of property as well as chinging the color of selected one 
+
+        function selectOnlyOne(selectedCheckbox) {
+            // Getting checkboxes 
+            let checkboxes = document.querySelectorAll('input[name="age_of_property"]');
+            let labels = document.querySelectorAll('.checkbox-label');
+
+            // Unchecking and updating style 
+            checkboxes.forEach((checkbox, index) => {
+                checkbox.checked = false;
+                labels[index].classList.remove("bg-blue-300", "text-white");
+                labels[index].classList.add("bg-white", "text-black");
+            });
+
+            // Checking the clicked checkbox
+            selectedCheckbox.checked = true;
+            let label = selectedCheckbox.parentElement;
+            label.classList.add("bg-blue-300", "text-white");
+            label.classList.remove("bg-white", "text-black");
+        }
+
+
+
+        // to form and add tags in restriction 
+        const restrictionOptions = ["No Pets", "No Smoking", "No Loud Music", "No Visitors After 10 PM", "No Alcohol", "No BBQ", "No Bachelors"];
+const featureOptions = ["Parking Available", "Swimming Pool", "Gym", "24/7 Security", "Power Backup", "Children's Play Area"];
+
+function setupTagging(containerId, inputId, suggestionBoxId, options, hiddenInputName) {
+    const tagContainer = document.getElementById(containerId);
+    const input = document.getElementById(inputId);
+    const suggestionBox = document.getElementById(suggestionBoxId);
+
+    // Ensure hidden input exists
+    let hiddenInput = tagContainer.querySelector(`input[name="${hiddenInputName}"]`);
+    if (!hiddenInput) {
+        hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.name = hiddenInputName;
+        tagContainer.appendChild(hiddenInput);
+    }
+
+    let tags = [];
+
+    function updateHiddenInput() {
+        hiddenInput.value = tags.join(","); // Store as comma-separated values
+        console.log(`Updated ${hiddenInput.name}:`, hiddenInput.value);
+    }
+
+    function renderTags() {
+        // Clear only tag elements (keep hidden input and input field)
+        tagContainer.querySelectorAll(".tag-item").forEach(tag => tag.remove());
+
+        tags.forEach((tag, index) => {
+            const tagElement = document.createElement("div");
+            tagElement.classList.add("tag-item", "bg-blue-100", "text-blue-600", "px-2", "py-1", "rounded-lg", "flex", "items-center", "gap-1");
+
+            const tagText = document.createElement("span");
+            tagText.textContent = tag;
+
+            const removeButton = document.createElement("span");
+            removeButton.classList.add("cursor-pointer", "text-red-500");
+            removeButton.innerHTML = "&times;";
+            removeButton.addEventListener("click", () => removeTag(index));
+
+            tagElement.appendChild(tagText);
+            tagElement.appendChild(removeButton);
+            tagContainer.insertBefore(tagElement, input);
+        });
+
+        updateHiddenInput();
+    }
+
+    function removeTag(index) {
+        tags.splice(index, 1);
+        renderTags();
+    }
+
+    function addTag(tag) {
+        if (!tags.includes(tag)) {
+            tags.push(tag);
+            renderTags();
+        }
+        input.value = "";
+        suggestionBox.classList.add("hidden");
+    }
+
+    input.addEventListener("input", function () {
+        const value = input.value.toLowerCase();
+        suggestionBox.innerHTML = "";
+
+        if (!value) {
+            suggestionBox.classList.add("hidden");
+            return;
+        }
+
+        const filtered = options.filter(option => option.toLowerCase().includes(value));
+
+        if (filtered.length === 0) {
+            suggestionBox.classList.add("hidden");
+            return;
+        }
+
+        suggestionBox.classList.remove("hidden");
+
+        filtered.forEach(option => {
+            const item = document.createElement("div");
+            item.classList.add("p-2", "hover:bg-gray-200", "cursor-pointer");
+            item.textContent = option;
+            item.addEventListener("click", function () {
+                addTag(option);
+            });
+            suggestionBox.appendChild(item);
+        });
+    });
+
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === "Tab") {
+            event.preventDefault();
+            if (input.value) {
+                addTag(input.value);
+            }
+        }
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!input.contains(event.target) && !suggestionBox.contains(event.target)) {
+            suggestionBox.classList.add("hidden");
+        }
+    });
+
+    return { addTag, removeTag, tags };
+}
+
+// Initialize tagging system
+const restrictionTags = setupTagging("restriction-container", "restriction-input", "restriction-autocomplete", restrictionOptions, "restrictions");
+const featureTags = setupTagging("features-container", "features-input", "features-autocomplete", featureOptions, "features");
+
+
+// to check quality of image
+// script starting 
+document.addEventListener("DOMContentLoaded", function () {
+    function checkImage(fileInput) {
+        if (fileInput.files.length === 0) return;
+
+        const file = fileInput.files[0];
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        const errorContainer = getErrorContainer(fileInput);
+
+        img.onload = function () {
+            const width = img.naturalWidth;
+            const height = img.naturalHeight;
+
+            if (width < 1080 || height < 720) {
+                errorContainer.textContent = "Please upload a photo with at least 1080×720 resolution.";
+                return;
+            }
+
+            checkNoise(img, fileInput, errorContainer);
+        };
+
+        img.src = url;
+    }
+
+    function checkNoise(img, fileInput, errorContainer) {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        const imageData = ctx.getImageData(0, 0, img.width, img.height);
+        const pixels = imageData.data;
+        let total = 0, mean = 0, variance = 0, count = 0;
+
+        for (let i = 0; i < pixels.length; i += 4) {
+            const brightness = (pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3;
+            total += brightness;
+            count++;
+        }
+
+        mean = total / count;
+
+        for (let i = 0; i < pixels.length; i += 4) {
+            const brightness = (pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3;
+            variance += (brightness - mean) ** 2;
+        }
+
+        const noiseLevel = Math.sqrt(variance / count);
+
+        if (noiseLevel > 50) {
+            errorContainer.textContent = "Please upload a clear image (too much noise).";
+        } else {
+            errorContainer.textContent = ""; // Remove error message if valid
+        }
+    }
+
+    function getErrorContainer(fileInput) {
+        let errorContainer = fileInput.nextElementSibling;
+        if (!errorContainer || !errorContainer.classList.contains("error-message")) {
+            errorContainer = document.createElement("div");
+            errorContainer.classList.add("error-message");
+            fileInput.parentNode.insertBefore(errorContainer, fileInput.nextSibling);
+        }
+        return errorContainer;
+    }
+
+    document.querySelectorAll("input[type='file']").forEach(input => {
+        input.addEventListener("change", function () {
+            if (this.name !== "video") {
+                checkImage(this);
+            }
+        });
+    });
+});
+
+
+// to predict the rent bhk size floor area type bathroom city area locality 
+async function predictRent() {
+    const floorSelect = document.getElementById("floor_Select");
+    const selectedFloor = floorSelect.options[floorSelect.selectedIndex].value;
+    const formData = {
+        "BHK": document.getElementById("bhk").value,
+        "Size": document.getElementById("size").value,
+        "Floor": selectedFloor,
+        "Bathroom": document.getElementById("bathroom").value,
+        "Area Type": "Carpet Area",
+        "Area Locality": document.getElementById("area_locality").value,
+        "City": document.getElementById("city").value,
+        "Furnishing Status": document.getElementById("furnishing_status").value,
+        "Tenant Preferred": "Bachelors/Family"
+    };
+
+    console.log("Sending Data:", formData);  // Debug: Check Data
+
+    try {
+        const response = await fetch("http://127.0.0.1:5000/predict", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+            throw new Error("HTTP status " + response.status);
+        }
+
+        const data = await response.json();
+        console.log("Response Data:", data);  // Debug: Check API Response
+
+        document.getElementById("result").innerHTML = `Predicted Rent: ₹${data.predicted_rent}`;
+
+    } catch (error) {
+        console.error("Fetch Error:", error);
+    }
+}
+
+// script ending 
+    </script>
+
+</body>
+
+</html>
