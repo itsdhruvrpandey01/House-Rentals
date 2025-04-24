@@ -28,7 +28,7 @@ This platform integrates several services as shown in the diagram:
 - **Chatbot**: For handling user queries (tenant support)
 
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend**: HTML, CSS, JavaScript (assumed)
 - **Backend**: Java with Spring Boot
@@ -36,9 +36,7 @@ This platform integrates several services as shown in the diagram:
 - **AI/ML Integration**: Custom models for rent and property comparison
 - **Communication**: SMTP/Email, Chatbot Integration
 
-## ⚙️ Configuration
-
-Here’s the `application.properties` setup for the Spring Boot backend:
+## Configuration
 
 ```properties
 spring.application.name=house-rental
